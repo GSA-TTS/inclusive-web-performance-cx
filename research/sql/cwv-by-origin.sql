@@ -9,6 +9,7 @@ SELECT
   avg_lcp AS needs_improvement_lcp,
   slow_lcp AS poor_lcp,
   # INP
+  # good < 200ms, poor >= 500ms
   p75_inp,
   fast_inp AS good_inp,
   avg_inp AS needs_improvement_inp,
