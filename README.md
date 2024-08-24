@@ -8,15 +8,12 @@ Here are some of the questions we hope to answer:
 
 Questions to be answered:
 
-- Where are the gaps in the current strategy?
-  - Is the site scan data close to the data in CrUX?
+- Is the site scan data close to the data in CrUX?
     - Use CrUX API for individual pages
 - Are we scanning the right things?
-  - Look at top 10k. How many of those urls show up in site scan?
   - How do people experience the urls that are accessed the most?
 - How can we help developers do the right thing?
 - Top tasks?
-  - Is it good for the most number of people? (p99) would be great
   - Can we correlate bounce rate with perf data?
 - What other metrics can we collect?
 - Are there regions where we're slow?
@@ -33,3 +30,9 @@ Questions to be answered:
   - Observers (intersection, performance, etc)
   - fetchpriority
   - scheduler.yield
+
+## Answered questions
+
+- Look at top 10k. How many of those urls show up in site scan?
+- Is CX speed good for the large majority of people? (p99 would be fantastic)
+- Where are the gaps in the current strategy?
