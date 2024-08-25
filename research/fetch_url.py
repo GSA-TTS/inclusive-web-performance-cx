@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-GOOGLE_API_KEY_CRUX = os.getenv('GOOGLE_API_KEY_CRUX')
+GOOGLE_API_KEY_CRUX = os.getenv("GOOGLE_API_KEY_CRUX")
 
 """
 {
@@ -173,15 +173,18 @@ GOOGLE_API_KEY_CRUX = os.getenv('GOOGLE_API_KEY_CRUX')
 }
 """
 
+
 def make_api_request(url):
-    api_endpoint = "https://chromeuxreport.googleapis.com/v1/records:queryRecord?key=" + GOOGLE_API_KEY_CRUX
-    payload = {
-        "url": url,
-        "formFactor": "PHONE"
-    }
+    api_endpoint = (
+        "https://chromeuxreport.googleapis.com/v1/records:queryRecord?key="
+        + GOOGLE_API_KEY_CRUX
+    )
+    payload = {"url": url, "formFactor": "PHONE"}
     response = requests.post(api_endpoint, json=payload)
     return response.json()
 
 
-res = make_api_request("https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html")
+res = make_api_request(
+    "https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html"
+)
 print(res)
