@@ -36,3 +36,15 @@ Questions to be answered:
 - Look at top 10k. How many of those urls show up in site scan?
 - Is CX speed good for the large majority of people? (p99 would be fantastic)
 - Where are the gaps in the current strategy?
+
+## Code formatting
+To format code, use 
+
+```bash
+nbqa black <dir>
+```
+
+to lint
+```bash
+nbqa pylint <dir>
+```
