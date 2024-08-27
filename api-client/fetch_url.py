@@ -1,6 +1,5 @@
 import os
 from research.utils.load_results_to_dataframe import load_results_to_dataframe
-import pandas as pd
 import requests
 import time
 from dotenv import load_dotenv, find_dotenv
@@ -15,14 +14,12 @@ df = load_results_to_dataframe(
     file_name="../research/data/top-10000-pages-and-screens-30-days-20240812.csv"
 )
 
-df = df.head(3)
+df = df.head(1000)
 df["url"] = "https://" + df["domain"] + df["pagePath"]
 
-print(df["url"])
-
 # Initialize the token bucket
-RATE_LIMIT = 10  # Number of tokens (API requests) per minute
-REFILL_TIME = 60  # Time in seconds to refill the tokens
+RATE_LIMIT = 5  # Number of tokens (API requests) per minute
+REFILL_TIME = 10  # Time in seconds to refill the tokens
 tokens = RATE_LIMIT
 last_request_time = time.time()
 
@@ -67,10 +64,18 @@ for index, row in df.iterrows():
 
             # Extract the relevant data from the response
             # Example: Assuming we're extracting 'first_contentful_paint'
+            time_to_first_byte = response_data['record']['metrics']['experimental_time_to_first_byte']['percentiles']['p75']
             first_contentful_paint = response_data['record']['metrics']['first_contentful_paint']['percentiles']['p75']
+            largest_contentful_paint = response_data['record']['metrics']['largest_contentful_paint']['percentiles']['p75']
+            cumulative_layout_shift = response_data['record']['metrics']['cumulative_layout_shift']['percentiles']['p75']
+            interaction_to_next_paint = response_data['record']['metrics']['interaction_to_next_paint']['percentiles']['p75']
 
             # Update the DataFrame with the relevant data
+            df.at[index, 'time_to_first_byte'] = time_to_first_byte
             df.at[index, 'first_contentful_paint'] = first_contentful_paint
+            df.at[index, 'largest_contentful_paint'] = largest_contentful_paint
+            df.at[index, 'cumulative_layout_shift'] = cumulative_layout_shift
+            df.at[index, 'interaction_to_next_paint'] = interaction_to_next_paint
 
         except Exception as e:
             print(f"Failed to fetch data for {url}: {e}")
