@@ -85,7 +85,7 @@ for index, row in df.iterrows():
         time.sleep(REFILL_TIME)  # Wait for the token bucket to refill
 
 # Save the updated DataFrame back to the CSV file
-df.to_csv('updated_file.csv', index=False)
+df.to_csv('top-1k-crux-20240826.csv', index=False)
 
 # import os
 # import requests
@@ -261,19 +261,3 @@ df.to_csv('updated_file.csv', index=False)
 #   }
 # }
 # """
-#
-#
-# def fetch_url(url):
-#     api_endpoint = (
-#         "https://chromeuxreport.googleapis.com/v1/records:queryRecord?key="
-#         + GOOGLE_API_KEY_CRUX
-#     )
-#     payload = {"url": url, "formFactor": "PHONE"}
-#     response = requests.post(api_endpoint, json=payload)
-#     return response.json()
-#
-#
-# res = make_api_request(
-#     "https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html"
-# )
-# print(res)
