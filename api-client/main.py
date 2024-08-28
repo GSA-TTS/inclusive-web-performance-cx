@@ -49,4 +49,4 @@ if __name__ == "__main__":
     df = df.sample(frac=0.25, replace=False).reset_index(drop=True)
     df["url"] = "https://" + df["domain"] + df["pagePath"]
 
-    main(df, 'sampled-crux-random-2k-20240828.csv')
+    main(df, 'sampled-crux-data-20240828.csv')
