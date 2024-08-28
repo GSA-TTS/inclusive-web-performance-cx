@@ -26,13 +26,13 @@ def main(df, output):
     # Iterate through each URL
     for index, row in df.iterrows():
         url = row['url']
-        print(f"Fetching data for {url}")
+        print(f"{index} - Fetching data for {url}")
         try:
             response_data = crux_client.make_api_request(f"https://chromeuxreport.googleapis.com/v1/records:queryRecord?key={GOOGLE_API_KEY_CRUX}", url)
+            print(response_data)
             if response_data.get('record') is None:
                 continue
             else:
-                print(response_data)
                 update_dataframe_with_response(df, index, response_data)
                 # Save the updated row to the CSV file after each API call
                 df.iloc[[index]].to_csv(output, mode='a', header=not os.path.exists(output), index=False)
@@ -46,7 +46,7 @@ if __name__ == "__main__":
         notebook_dir=os.getcwd(),
         file_name="../research/data/top-10000-pages-and-screens-30-days-20240828.csv"
     )
-    df = df.sample(frac=0.2, replace=False).reset_index(drop=True)
+    df = df.sample(frac=0.25, replace=False).reset_index(drop=True)
     df["url"] = "https://" + df["domain"] + df["pagePath"]
 
     main(df, 'sampled-crux-random-2k-20240828.csv')
