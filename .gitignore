@@ -157,3 +157,5 @@ cython_debug/
 
 .idea/
 research/.env
+
+Zone.Identifier

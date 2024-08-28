@@ -21,7 +21,7 @@ def update_dataframe_with_response(df, index, response_data):
 
 def main(df, output):
     # Initialize the API client
-    crux_client = CruxAPIClient(rate_limit=5, refill_time=6)
+    crux_client = CruxAPIClient(rate_limit=8, refill_time=5)
 
     # Iterate through each URL
     for index, row in df.iterrows():
@@ -44,7 +44,7 @@ if __name__ == "__main__":
     # Load the CSV file into a DataFrame
     df = load_results_to_dataframe(
         notebook_dir=os.getcwd(),
-        file_name="../research/data/top-10000-pages-and-screens-30-days-20240812.csv"
+        file_name="../research/data/top-10000-pages-and-screens-30-days-20240828.csv"
     )
     df = df.sample(frac=0.2, replace=False).reset_index(drop=True)
     df["url"] = "https://" + df["domain"] + df["pagePath"]
