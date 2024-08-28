@@ -21,7 +21,7 @@ def update_dataframe_with_response(df, index, response_data):
 
 def main(df, output):
     # Initialize the API client
-    crux_client = CruxAPIClient(rate_limit=5, refill_time=8)
+    crux_client = CruxAPIClient(rate_limit=5, refill_time=6)
 
     # Iterate through each URL
     for index, row in df.iterrows():
@@ -49,4 +49,4 @@ if __name__ == "__main__":
     df = df.sample(frac=0.2, replace=False).reset_index(drop=True)
     df["url"] = "https://" + df["domain"] + df["pagePath"]
 
-    main(df, 'output.csv')
+    main(df, 'sampled-crux-random-2k-20240828.csv')
