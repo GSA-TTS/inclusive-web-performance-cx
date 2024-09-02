@@ -41,7 +41,14 @@ def main(df, output):
         url = row["url"]
         print(f"{index} - Fetching data for {url}")
         try:
-            response_data = token_bucket.execute(crux_api_client.get_url(url))
+            response_data = token_bucket.execute(
+                crux_api_client.get_url(
+                    url,
+                    {
+                        "formFactor": "PHONE",
+                    },
+                )
+            )
             print(response_data)
             if response_data.get("record") is None:
                 continue
