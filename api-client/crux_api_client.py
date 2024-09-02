@@ -51,32 +51,32 @@ class CruxAPIClient:
     def get_url(self, url: str, params: dict = None, headers: dict = None):
         """Calls the CrUX API for a single URL"""
         payload = {"url": url}
-        headers = {"Content-Type": "application/json"}
+        request_headers = {"Content-Type": "application/json"}
 
         if params:
             payload.update(params)
 
         if headers:
-            headers.update(headers)
+            request_headers.update(headers)
 
         response = requests.post(
-            self.api_endpoint, json=payload, headers=headers, timeout=10
+            self.api_endpoint, json=payload, headers=request_headers, timeout=10
         )
         return self._handle_response(response)
 
     def get_origin(self, origin, params: dict = None, headers: dict = None):
         """Calls the CrUX API for an origin"""
         payload = {"origin": origin}
-        headers = {"Content-Type": "application/json"}
+        request_headers = {"Content-Type": "application/json"}
 
         if params:
             payload.update(params)
 
         if headers:
-            headers.update(headers)
+            request_headers.update(headers)
 
         response = requests.post(
-            self.api_endpoint, json=payload, headers=headers, timeout=10
+            self.api_endpoint, json=payload, headers=request_headers, timeout=10
         )
         return self._handle_response(response)
 
