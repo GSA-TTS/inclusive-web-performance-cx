@@ -68,7 +68,9 @@ if __name__ == "__main__":
         notebook_dir=os.getcwd(),
         file_name="../research/data/top-10000-pages-and-screens-30-days-20240828.csv",
     )
-    df = df.sample(frac=0.25, replace=False).reset_index(drop=True)
+    # df = df.sample(frac=0.25, replace=False).reset_index(drop=True)
     df["url"] = "https://" + df["domain"] + df["pagePath"]
 
-    main(df, "sampled-crux-data-20240828.csv")
+    df["url"].to_csv("result.txt", index=False)
+
+    # main(df, "sampled-crux-data-20240828.csv")
