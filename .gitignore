@@ -159,3 +159,4 @@ cython_debug/
 research/.env
 
 Zone.Identifier
+format_urls/test/output.txt
