@@ -2,7 +2,6 @@
 
 import csv
 import os
-import random
 
 import click
 from dotenv import load_dotenv, find_dotenv

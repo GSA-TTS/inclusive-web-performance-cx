@@ -48,3 +48,13 @@ to lint
 ```bash
 nbqa pylint <dir>
 ```
+
+Source your venv
+```bash
+. path/to/venv/bin/activate
+```
+
+Install the cli apps
+```bash
+pip install --editable .
+```

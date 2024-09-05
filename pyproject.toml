@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+
+[project]
+name = "crux-api-cli"
+version = "1.0.0"
+description = "Click inout example"
+requires-python = ">=3.8"
+dependencies = [
+    "click>=8.1",
+]
+
+[project.scripts]
+crux_api_cli = "api_client.main:main"
+format_urls = "format_urls.main:main"
+
+[tool.setuptools]
+py-modules = []
