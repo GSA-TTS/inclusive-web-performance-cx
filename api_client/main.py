@@ -56,13 +56,13 @@ def format_results(results):
     help="API key for requests (reads from .env if not provided).",
 )
 @click.option(
-    "--sample-rate",
-    "-s",
-    default=1.0,
-    type=float,
-    help="Sample rate to fetch URLs (0 < sample-rate <= 1).",
+    "--threshold",
+    "-t",
+    default=10,
+    type=int,
+    help="Stop after {x} consecutive errors",
 )
-def fetch_urls(input_urls=None, output_file=None, api_key=None, sample_rate=None):
+def main(input_urls, output_file, api_key, threshold):
     """
     CLI tool to fetch URLs from a file or CLI arg and save or print the responses.
     """
@@ -80,10 +80,9 @@ def fetch_urls(input_urls=None, output_file=None, api_key=None, sample_rate=None
     else:
         urls = [input_urls]
 
-    if len(urls) > 1:
-        urls = random.sample(urls, int(len(urls) * sample_rate))
+    needs_header = not os.path.exists(output_file) or os.stat(output_file).st_size == 0
 
-    needs_header = True
+    error_count = 0
 
     # Fetch each URL
     for index, url in enumerate(urls):
@@ -120,9 +119,15 @@ def fetch_urls(input_urls=None, output_file=None, api_key=None, sample_rate=None
             else:
                 click.echo(response_data)
 
+            error_count = 0
+
         except NotFoundException as e:
+            error_count += 1
             click.echo(f"Failed to fetch {url}: {e}")
+
+        if error_count >= threshold:
+            break
 
 
 if __name__ == "__main__":
-    fetch_urls()
+    main()  # pylint: disable=no-value-for-parameter

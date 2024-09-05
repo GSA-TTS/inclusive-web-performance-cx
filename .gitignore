@@ -159,4 +159,7 @@ cython_debug/
 research/.env
 
 Zone.Identifier
+
+# Artifacts from testing
 format_urls/test/output.txt
+api_client/test/output.csv
