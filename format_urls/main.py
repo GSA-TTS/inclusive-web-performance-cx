@@ -20,13 +20,24 @@ from format_urls.load_results_to_dataframe import load_results_to_dataframe
     type=click.Path(),
     help="Output file to write responses.",
 )
-def main(input_urls, output_file):
+@click.option(
+    "--domain",
+    "-d",
+    required=True,
+    type=click.Path(),
+    help="Filter by domain.",
+)
+def main(input_urls, output_file, domain):
     """Concatenates domain and page path columns from a CSV file
     into a URL with the https:// protocol prepended."""
     df = load_results_to_dataframe(
         notebook_dir=os.getcwd(),
         file_name=input_urls,
     )
+
+    if domain:
+        df = df[df["domain"] == domain]
+
     df["url"] = "https://" + df["domain"] + df["pagePath"]
 
     df["url"].to_csv(output_file, index=False)
