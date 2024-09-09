@@ -15,4 +15,4 @@ crux_api_cli = "api_client.main:main"
 format_urls = "format_urls.main:main"
 
 [tool.setuptools]
-py-modules = []
+py-modules = ["api_client", "format_urls"]

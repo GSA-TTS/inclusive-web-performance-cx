@@ -40,5 +40,5 @@ def test_main():
         next(reader)
         for row in reader:
             data.append(float(row["first_contentful_paint_p75"]))
-    assert all(isinstance(item, numbers.Number) for item in data) == True
+    assert all(isinstance(item, numbers.Number) for item in data) is True
     cleanup()

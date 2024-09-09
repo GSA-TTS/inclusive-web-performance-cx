@@ -2,7 +2,7 @@
 
 import os
 import click
-from research.utils.load_results_to_dataframe import load_results_to_dataframe
+from format_urls.load_results_to_dataframe import load_results_to_dataframe
 
 
 @click.command()
