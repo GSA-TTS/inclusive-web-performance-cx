@@ -6,36 +6,11 @@ import os
 import click
 from dotenv import load_dotenv, find_dotenv
 
+from api_client.format_results import format_results
 from api_client.crux_api_client import CruxAPIClient, NotFoundException
 from api_client.token_bucket import TokenBucket
 
 load_dotenv(find_dotenv())
-
-
-def format_results(results):
-    """Format results for csv file"""
-    metrics = results["record"]["metrics"]
-
-    data = [
-        results["record"]["key"]["url"],
-        metrics.get("experimental_time_to_first_byte", {})
-        .get("percentiles", {})
-        .get("p75", None),
-        metrics.get("first_contentful_paint", {})
-        .get("percentiles", {})
-        .get("p75", None),
-        metrics.get("largest_contentful_paint", {})
-        .get("percentiles", {})
-        .get("p75", None),
-        metrics.get("cumulative_layout_shift", {})
-        .get("percentiles", {})
-        .get("p75", None),
-        metrics.get("interaction_to_next_paint", {})
-        .get("percentiles", {})
-        .get("p75", None),
-    ]
-
-    return data
 
 
 @click.command()
