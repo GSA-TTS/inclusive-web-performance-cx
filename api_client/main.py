@@ -74,6 +74,7 @@ def main(input_urls, output_file, api_key, threshold):
                 continue
 
             if output_file:
+                click.echo(response_data)
                 formatted_results = format_results(response_data)
                 with open(output_file, mode="a", newline="", encoding="utf8") as file:
                     writer = csv.writer(file)

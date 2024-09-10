@@ -46,9 +46,9 @@ def categorize_histogram(label, histogram):
 
         data.update(
             {
-                f"{label}_good_density": histogram[0]["density"],
-                f"{label}_needs_improvement_density": histogram[1]["density"],
-                f"{label}_poor_density": histogram[2]["density"],
+                f"{label}_good_density": histogram[0].get("density", None),
+                f"{label}_needs_improvement_density": histogram[1].get("density", None),
+                f"{label}_poor_density": histogram[2].get("density", None),
             }
         )
 
