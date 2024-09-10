@@ -31,6 +31,7 @@ def format_results(results):
 
 
 def categorize_histogram(label, histogram):
+    """Flatten the histogram and divide into good, needs improvement, and poor categories"""
     data = {}
     if len(histogram) != 3:
         data.update(

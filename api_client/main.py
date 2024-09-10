@@ -73,23 +73,14 @@ def main(input_urls, output_file, api_key, threshold):
             if response_data.get("record") is None:
                 continue
 
-            click.echo(response_data)
             if output_file:
+                formatted_results = format_results(response_data)
                 with open(output_file, mode="a", newline="", encoding="utf8") as file:
                     writer = csv.writer(file)
                     if needs_header:
-                        writer.writerow(
-                            [
-                                "url",
-                                "time_to_first_byte_p75",
-                                "first_contentful_paint_p75",
-                                "largest_contentful_paint_p75",
-                                "cumulative_layout_shift_p75",
-                                "interaction_to_next_paint_p75",
-                            ]
-                        )
+                        writer.writerow(list(formatted_results.keys()))
                         needs_header = False
-                    writer.writerow(format_results(response_data))
+                    writer.writerow(list(formatted_results.values()))
             else:
                 click.echo(response_data)
 
