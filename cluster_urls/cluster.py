@@ -1,44 +1,77 @@
+"""Cluster URLs from an input file and output the clusters in JSON format to an output file."""
+
 import re
+import json
+import click
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 import nltk
 from nltk.tokenize import word_tokenize
 
 # Ensure you have the necessary NLTK tokenizer data
-nltk.download('punkt')
-
-# Read URLs from file
-with open('gsa-urls.txt', 'r') as file:
-    urls = file.read().splitlines()
+nltk.download("punkt", quiet=True)
 
 
-# Function to extract tokens from URL
 def tokenize_url(url):
-    url = re.sub(r'http[s]?://', '', url)  # Remove HTTP/S protocol
-    url = re.sub(r'www\.', '', url)  # Remove 'www.'
-    tokens = word_tokenize(re.sub(r'\W+', ' ', url))  # Tokenize by splitting non-alphanumeric characters
-    return ' '.join(tokens)
+    """extract tokens from URL"""
+    url = re.sub(r"http[s]?://", "", url)  # Remove HTTP/S protocol
+    url = re.sub(r"www\.", "", url)  # Remove 'www.'
+    tokens = word_tokenize(
+        re.sub(r"\W+", " ", url)
+    )  # Tokenize by splitting non-alphanumeric characters
+    return " ".join(tokens)
 
 
-# Tokenize the URL paths
-tokens = [tokenize_url(url) for url in urls]
+@click.command()
+@click.option("--input", "input_file", required=True, help="Input file containing URLs")
+@click.option(
+    "--output",
+    "output_file",
+    required=True,
+    help="Output file for JSON formatted array of clusters",
+)
+@click.option(
+    "--clusters",
+    "-c",
+    default=10,
+    type=int,
+    help="Stop after {x} consecutive errors",
+)
+def main(input_file, output_file, clusters):
+    """Cluster URLs from an input file and output the clusters in JSON format to an output file."""
+    # Read URLs from file
+    with open(input_file, "r") as file:
+        urls = file.read().splitlines()
 
-# Use TfidfVectorizer with tokenization for feature extraction
-vectorizer = TfidfVectorizer(ngram_range=(1, 3))  # Using n-grams for better granularity
-X = vectorizer.fit_transform(tokens)
+    # Tokenize the URL paths
+    tokens = [tokenize_url(url) for url in urls]
 
-# Use K-Means to cluster the URLs
-num_clusters = 8  # You can change the number of clusters
-kmeans = KMeans(n_clusters=num_clusters)
-kmeans.fit(X)
+    # Use TfidfVectorizer with tokenization for feature extraction
+    vectorizer = TfidfVectorizer(
+        ngram_range=(1, 3)
+    )  # Using n-grams for better granularity
+    vector_fit = vectorizer.fit_transform(tokens)
 
-# Print out the clustered URLs
-clusters = {}
-for i in range(num_clusters):
-    clusters[i] = [urls[idx] for idx, label in enumerate(kmeans.labels_) if label == i]
+    # Use K-Means to cluster the URLs
+    num_clusters = (
+        clusters  # You can change the number of clusters, or make it a parameter
+    )
+    kmeans = KMeans(n_clusters=num_clusters)
+    kmeans.fit(vector_fit)
 
-for cluster_id, cluster_urls in clusters.items():
-    print(f"Cluster {cluster_id}: {len(cluster_urls)} URLs")
-    for url in cluster_urls:
-        print(f" - {url}")
-    print()
+    # Collect the clustered URLs
+    results = {}
+    for i in range(num_clusters):
+        results[i] = [
+            urls[idx] for idx, label in enumerate(kmeans.labels_) if label == i
+        ]
+
+    # Write JSON output
+    with open(output_file, "w") as outfile:
+        json.dump(results, outfile, indent=4)
+
+    print(f"Clustering complete. Output written to: {output_file}")
+
+
+if __name__ == "__main__":
+    main() # pylint: disable=no-value-for-parameter
