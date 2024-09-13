@@ -40,7 +40,7 @@ def tokenize_url(url):
 def main(input_file, output_file, clusters):
     """Cluster URLs from an input file and output the clusters in JSON format to an output file."""
     # Read URLs from file
-    with open(input_file, "r") as file:
+    with open(input_file, "r", encoding="utf8") as file:
         urls = file.read().splitlines()
 
     # Tokenize the URL paths
@@ -60,18 +60,24 @@ def main(input_file, output_file, clusters):
     kmeans.fit(vector_fit)
 
     # Collect the clustered URLs
-    results = {}
+    item_clusters = []
     for i in range(num_clusters):
-        results[i] = [
-            urls[idx] for idx, label in enumerate(kmeans.labels_) if label == i
-        ]
+        cluster_urls = [urls[idx] for idx, label in enumerate(kmeans.labels_) if label == i]
+        item_clusters.append({
+            "items": cluster_urls,
+            "total_items": len(cluster_urls)
+        })
+
+    results = {
+        "clusters": item_clusters
+    }
 
     # Write JSON output
-    with open(output_file, "w") as outfile:
+    with open(output_file, "w", encoding="utf8") as outfile:
         json.dump(results, outfile, indent=4)
 
     print(f"Clustering complete. Output written to: {output_file}")
 
 
 if __name__ == "__main__":
-    main() # pylint: disable=no-value-for-parameter
+    main()  # pylint: disable=no-value-for-parameter
