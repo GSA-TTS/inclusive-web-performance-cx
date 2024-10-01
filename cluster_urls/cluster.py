@@ -35,7 +35,7 @@ def tokenize_url(url):
     "-c",
     default=10,
     type=int,
-    help="Stop after {x} consecutive errors",
+    help="Number of url clusters",
 )
 def main(input_file, output_file, clusters):
     """Cluster URLs from an input file and output the clusters in JSON format to an output file."""
