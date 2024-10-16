@@ -13,6 +13,7 @@ dependencies = [
 [project.scripts]
 crux_api_cli = "api_client.main:main"
 format_urls = "format_urls.main:main"
+cluster_urls = "cluster_urls.cluster:main"
 
 [tool.setuptools]
-py-modules = ["api_client", "format_urls"]
+py-modules = ["api_client", "format_urls", "cluster_urls"]

@@ -23,7 +23,6 @@ from format_urls.load_results_to_dataframe import load_results_to_dataframe
 @click.option(
     "--domain",
     "-d",
-    required=True,
     type=click.Path(),
     help="Filter by domain.",
 )

@@ -5,6 +5,7 @@ import os
 
 import click
 from dotenv import load_dotenv, find_dotenv
+import validators
 
 from api_client.format_results import format_results
 from api_client.crux_api_client import CruxAPIClient, NotFoundException
@@ -24,6 +25,12 @@ load_dotenv(find_dotenv())
     help="Output file to write responses (prints to console if not provided).",
 )
 @click.option(
+    "--form-factor",
+    "-f",
+    type=click.Choice(["PHONE", "TABLET", "DESKTOP"]),
+    help="Form factor to use for the report.",
+)
+@click.option(
     "--api-key",
     "-k",
     default=os.getenv("GOOGLE_API_KEY_CRUX"),
@@ -36,7 +43,7 @@ load_dotenv(find_dotenv())
     type=int,
     help="Stop after {x} consecutive errors",
 )
-def main(input_urls, output_file, api_key, threshold):
+def main(input_urls, output_file, form_factor, api_key, threshold):
     """
     CLI tool to fetch URLs from a file or CLI arg and save or print the responses.
     """
@@ -54,22 +61,26 @@ def main(input_urls, output_file, api_key, threshold):
     else:
         urls = [input_urls]
 
-    needs_header = not os.path.exists(output_file) or os.stat(output_file).st_size == 0
+    urls = [url for url in urls if validators.url(url)]
+    if not urls:
+        click.echo("No valid URLs provided.")
+        return
 
+    needs_header = not os.path.exists(output_file) or os.stat(output_file).st_size == 0
     error_count = 0
 
     # Fetch each URL
     for index, url in enumerate(urls):
         click.echo(f"{index} - Fetching data for {url}")
         try:
+            request_params = {}
+            if form_factor:
+                request_params["formFactor"] = form_factor
+
             response_data = token_bucket.execute(
-                crux_api_client.get_url(
-                    url,
-                    {
-                        "formFactor": "PHONE",
-                    },
-                )
+                crux_api_client.get_url(url, request_params)
             )
+
             if response_data.get("record") is None:
                 continue
 
@@ -86,7 +97,6 @@ def main(input_urls, output_file, api_key, threshold):
                 click.echo(response_data)
 
             error_count = 0
-
         except NotFoundException as e:
             error_count += 1
             click.echo(f"Failed to fetch {url}: {e}")
