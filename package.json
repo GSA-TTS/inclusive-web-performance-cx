@@ -1,0 +1,13 @@
+{
+  "name": "10x-web-performance-optimization-research",
+  "version": "1.0.0",
+  "description": "This project contains research around web performance in the federal government to help hone in on a potential solution that can work at a large scale.",
+  "workspaces": [
+    "apps"
+  ],
+  "author": "10x",
+  "license": "ISC",
+  "devDependencies": {
+    "sass-embedded": "^1.83.4"
+  }
+}
