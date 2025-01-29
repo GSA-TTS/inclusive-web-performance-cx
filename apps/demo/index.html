@@ -1,69 +1,73 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<title>Performance of GSA web properties</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.11.0/js/uswds-init.min.js"
-					integrity="sha512-bXbQXDDedg6Yq2zDO+94e2vhkI3yDQd3Qj3VyGMa958ZudBTkluWOBuB+QXTGxzuaGY3Yd88zZ7IbG5iccGNeA=="
-					crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<!--	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.11.0/css/uswds.min.css"-->
-<!--				integrity="sha512-Hc40xGRxbM2Ihz8tDtmRmhHtAzGzlpaHIwOniSb8ClzBIe5mTrW5EEG552LBrp1gELfd+iXJzAtGEUGEvs77NA=="-->
-<!--				crossorigin="anonymous" referrerpolicy="no-referrer"/>-->
-	<link rel="stylesheet" href="src/sass/index.scss"/>
-	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.11.0/js/uswds.min.js"
-					integrity="sha512-iB+Jnsmqy/4btjAOX424dJkDi7zN9ImOVvfOeAavbGqn4cCnzhuClPp25n7seSQKDjICJfalBScdUbg9zcs9tQ=="
-					crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script type="module" src="/src/index.ts"></script>
-	<link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Performance of GSA web properties</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.11.0/js/uswds-init.min.js"
+          integrity="sha512-bXbQXDDedg6Yq2zDO+94e2vhkI3yDQd3Qj3VyGMa958ZudBTkluWOBuB+QXTGxzuaGY3Yd88zZ7IbG5iccGNeA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="src/sass/index.scss"/>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.11.0/js/uswds.min.js"
+          integrity="sha512-iB+Jnsmqy/4btjAOX424dJkDi7zN9ImOVvfOeAavbGqn4cCnzhuClPp25n7seSQKDjICJfalBScdUbg9zcs9tQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="module" src="/src/index.ts"></script>
+  <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
 </head>
 <body>
 <div class="grid-container">
-	<div class="grid-row">
-		<table class="usa-table usa-table--stacked-header usa-table--borderless">
-			<caption>
-				Performance of GSA web properties
-			</caption>
-			<thead>
-			<tr>
-				<th scope="col">Origin</th>
-				<th scope="col">Passes <abbr title="Core Web Vitals">CWV</abbr>
-					<svg class="usa-icon usa-tooltip" title="To pass, the values for LCP, CLS, and INP must all be good" aria-labelledby="cwv-info" role="img">
-						<title id="cwv-info">About Passing CWV</title>
-						<use href="/assets/img/sprite.svg#info"></use>
+  <div class="grid-row">
+    <table class="usa-table usa-table--stacked-header usa-table--borderless">
+      <caption>
+        Performance of GSA web properties
+      </caption>
+      <thead>
+      <tr>
+        <th scope="col">Origin</th>
+        <th scope="col">Passes <abbr title="Core Web Vitals">CWV</abbr>
+          <svg class="usa-icon" title="To pass, the values for LCP, CLS, and INP must all be good"
+               aria-labelledby="cwv-info" role="img">
+            <title id="cwv-info">About Passing CWV</title>
+            <use href="/img/sprite.svg#info"></use>
+          </svg>
+        </th>
+        <th scope="col">Good <abbr title="Largest Contentful Paint">LCP</abbr>
+          <span class="usa-tooltip" title="Good LCP values are 2.5s or less.">
+            <svg class="usa-icon" aria-labelledby="lcp-info" role="img">
+              <title id="lcp-info">What is a Good LCP?</title>
+              <use href="/img/sprite.svg#info"></use>
+            </svg>
+          </span>
+        </th>
+        <th scope="col">Good <abbr title="Cumulative Layout Shift">CLS</abbr>
+          <span class="usa-tooltip" title="Good CLS values are 0.1 or less.">
+            <svg class="usa-icon" aria-labelledby="cls-info" role="img">
+						  <title id="cls-info">What is a Good CLS?</title>
+						  <use href="/img/sprite.svg#info"></use>
+					  </svg>
+          </span>
+        </th>
+        <th scope="col">Good <abbr title="Interaction to Next Paint">INP</abbr>
+          <span class="usa-tooltip" title="Good INP values are 200ms or less.">
+					<svg class="usa-icon" aria-labelledby="inp-info" role="img">
+						<title id="lcp-info">What is a Good INP?</title>
+						<use href="/img/sprite.svg#info"></use>
 					</svg>
-				</th>
-				<th scope="col">Good <abbr title="Largest Contentful Paint">LCP</abbr>
-<!--					<svg class="usa-icon usa-tooltip" title="Good LCP values are 2.5s or less." aria-labelledby="lcp-info" role="img">-->
-<!--						<title id="lcp-info">What is a Good LCP?</title>-->
-<!--						<use href="/assets/img/sprite.svg#info"></use>-->
-<!--					</svg>-->
-				</th>
-				<th scope="col">Good <abbr title="Cumulative Layout Shift">CLS</abbr>
-<!--					<svg class="usa-icon usa-tooltip" title="Good CLS values are 0.1 or less." aria-labelledby="cls-info" role="img">-->
-<!--						<title id="cls-info">What is a Good CLS?</title>-->
-<!--						<use href="/assets/img/sprite.svg#info"></use>-->
-<!--					</svg>-->
-				</th>
-				<th scope="col">Good <abbr title="Interaction to Next Paint">INP</abbr>
-<!--					<svg class="usa-icon usa-tooltip" title="Good INP values are 200ms or less." aria-labelledby="inp-info" role="img">-->
-<!--						<title id="lcp-info">What is a Good INP?</title>-->
-<!--						<use href="/assets/img/sprite.svg#info"></use>-->
-<!--					</svg>-->
-				</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr>
-				<th data-label="Origin" scope="row">-</th>
-				<td data-label="Passes CWV">-</td>
-				<td data-label="Good Largest Contentful Paint">-</td>
-				<td data-label="Good Cumulative Layout Shift">-</td>
-				<td data-label="Good Interaction to Next Paint">-</td>
-			</tr>
-			</tbody>
-		</table>
-	</div>
+          </span>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th data-label="Origin" scope="row">-</th>
+        <td data-label="Passes CWV">-</td>
+        <td data-label="Good Largest Contentful Paint">-</td>
+        <td data-label="Good Cumulative Layout Shift">-</td>
+        <td data-label="Good Interaction to Next Paint">-</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 <!--<my-element>-->
 <!--	<h1>Vite + Lit</h1>-->
