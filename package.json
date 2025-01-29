@@ -5,9 +5,12 @@
   "workspaces": [
     "apps"
   ],
+  "scripts": {
+    "format": "prettier --write \"apps/*/src/**/*.{js,jsx,ts,tsx,scss,css}\""
+  },
   "author": "10x",
   "license": "ISC",
   "devDependencies": {
-    "sass-embedded": "^1.83.4"
+    "prettier": "^3.4.2"
   }
 }
