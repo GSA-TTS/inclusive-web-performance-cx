@@ -154,8 +154,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-
-.idea/
 research/.env
 
 Zone.Identifier
@@ -172,6 +170,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Node
 node_modules
 dist
 dist-ssr
@@ -187,3 +186,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Misc
+temp

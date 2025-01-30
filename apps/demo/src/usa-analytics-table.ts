@@ -1,7 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import litLogo from './assets/lit.svg';
-import viteLogo from '/vite.svg';
+// import litLogo from './assets/lit.svg';
+// import viteLogo from '/vite.svg';
 
 /**
  * An example element.
@@ -9,8 +9,8 @@ import viteLogo from '/vite.svg';
  * @slot - This element has a slot
  * @csspart button - The button
  */
-@customElement('my-element')
-export class MyElement extends LitElement {
+@customElement('usa-analytics-table')
+export class USAAnalyticsTable extends LitElement {
   /**
    * Copy for the read the docs hint.
    */
@@ -25,14 +25,6 @@ export class MyElement extends LitElement {
 
   render() {
     return html`
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src=${viteLogo} class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://lit.dev" target="_blank">
-          <img src=${litLogo} class="logo lit" alt="Lit logo" />
-        </a>
-      </div>
       <slot></slot>
       <div class="card">
         <button @click=${this._onClick} part="button">
@@ -122,6 +114,6 @@ export class MyElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'my-element': MyElement;
+    'usa-analytics-table': USAAnalyticsTable;
   }
 }
