@@ -1,3 +1,28 @@
+type RawAPIResponse = {
+  origin?: string;
+  url?: string;
+  experimental_time_to_first_byte_p75: number | null;
+  experimental_time_to_first_byte_good_density: number | null;
+  experimental_time_to_first_byte_needs_improvement_density: number | null;
+  experimental_time_to_first_byte_poor_density: number | null;
+  first_contentful_paint_p75: number | null;
+  first_contentful_paint_good_density: number | null;
+  first_contentful_paint_needs_improvement_density: number | null;
+  first_contentful_paint_poor_density: number | null;
+  largest_contentful_paint_p75: number | null;
+  largest_contentful_paint_good_density: number | null;
+  largest_contentful_paint_needs_improvement_density: number | null;
+  largest_contentful_paint_poor_density: number | null;
+  cumulative_layout_shift_p75: number | null;
+  cumulative_layout_shift_good_density: number | null;
+  cumulative_layout_shift_needs_improvement_density: number | null;
+  cumulative_layout_shift_poor_density: number | null;
+  interaction_to_next_paint_p75: number | null;
+  interaction_to_next_paint_good_density: number | null;
+  interaction_to_next_paint_needs_improvement_density: number | null;
+  interaction_to_next_paint_poor_density: number | null;
+};
+
 export default [
   {
     url: '/api/agency/gsa/all',
@@ -464,12 +489,12 @@ export default [
           interaction_to_next_paint_needs_improvement_density: 0.1101,
           interaction_to_next_paint_poor_density: 0.0157,
         },
-      ].map(item => formatResults);
+      ].map(formatResults);
     },
   },
 ];
 
-const formatResults = item => {
+const formatResults = (item: RawAPIResponse) => {
   const {
     origin,
     largest_contentful_paint_good_density,
