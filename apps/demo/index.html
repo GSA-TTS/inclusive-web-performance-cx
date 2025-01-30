@@ -7,7 +7,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.11.0/js/uswds-init.min.js"
           integrity="sha512-bXbQXDDedg6Yq2zDO+94e2vhkI3yDQd3Qj3VyGMa958ZudBTkluWOBuB+QXTGxzuaGY3Yd88zZ7IbG5iccGNeA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <link rel="stylesheet" href="src/sass/index.scss"/>
+  <link rel="stylesheet" href="src/assets/styles/index.scss"/>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.11.0/js/uswds.min.js"
           integrity="sha512-iB+Jnsmqy/4btjAOX424dJkDi7zN9ImOVvfOeAavbGqn4cCnzhuClPp25n7seSQKDjICJfalBScdUbg9zcs9tQ=="
           crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -18,55 +18,65 @@
 <div class="grid-container">
   <div class="grid-row">
     <table class="usa-table usa-table--stacked-header usa-table--borderless width-full">
-      <caption>
-        Performance of GSA web properties
-      </caption>
-      <thead>
-      <tr>
-        <th scope="col">Origin</th>
-        <th scope="col">Passes <abbr title="Core Web Vitals">CWV</abbr>
-          <svg class="usa-icon" title="To pass, the values for LCP, CLS, and INP must all be good"
-               aria-labelledby="cwv-info" role="img">
-            <title id="cwv-info">About Passing CWV</title>
-            <use href="/img/sprite.svg#info"></use>
-          </svg>
-        </th>
-        <th scope="col">Good <abbr title="Largest Contentful Paint">LCP</abbr>
-          <span class="usa-tooltip" title="Good LCP values are 2.5s or less.">
-            <svg class="usa-icon" aria-labelledby="lcp-info" role="img">
-              <title id="lcp-info">What is a Good LCP?</title>
-              <use href="/img/sprite.svg#info"></use>
-            </svg>
-          </span>
-        </th>
-        <th scope="col">Good <abbr title="Cumulative Layout Shift">CLS</abbr>
-          <span class="usa-tooltip" title="Good CLS values are 0.1 or less.">
-            <svg class="usa-icon" aria-labelledby="cls-info" role="img">
-						  <title id="cls-info">What is a Good CLS?</title>
-						  <use href="/img/sprite.svg#info"></use>
-					  </svg>
-          </span>
-        </th>
-        <th scope="col">Good <abbr title="Interaction to Next Paint">INP</abbr>
-          <span class="usa-tooltip" title="Good INP values are 200ms or less.">
-					<svg class="usa-icon" aria-labelledby="inp-info" role="img">
-						<title id="lcp-info">What is a Good INP?</title>
-						<use href="/img/sprite.svg#info"></use>
+			<caption>
+				Performance of GSA web properties
+			</caption>
+			<thead>
+			<tr>
+				<th scope="col">Origin</th>
+				<th scope="col">Passes <abbr title="Core Web Vitals">CWV</abbr>
+					<svg class="usa-icon usa-tooltip" title="To meet the passing criteria, LCP, CLS, and INP must all have a &ldquo;Good&rdquo; percentage of 75% or greater." aria-labelledby="cwv-info" role="img">
+						<title id="cwv-info">About Passing CWV</title>
+						<use href="/uswds/img/sprite.svg#info"></use>
 					</svg>
-          </span>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <th data-label="Origin" scope="row">-</th>
-        <td data-label="Passes CWV">-</td>
-        <td data-label="Good Largest Contentful Paint">-</td>
-        <td data-label="Good Cumulative Layout Shift">-</td>
-        <td data-label="Good Interaction to Next Paint">-</td>
-      </tr>
-      </tbody>
-    </table>
+				</th>
+				<th scope="col">% Good <abbr title="Largest Contentful Paint">LCP</abbr>
+					<svg class="usa-icon usa-tooltip" title="Good LCP values are 2.5s or less." aria-labelledby="lcp-info" role="img">
+						<title id="lcp-info">What is a Good LCP?</title>
+						<use href="/uswds/img/sprite.svg#info"></use>
+					</svg>
+				</th>
+				<th scope="col">% Good <abbr title="Cumulative Layout Shift">CLS</abbr>
+					<svg class="usa-icon usa-tooltip" title="Good CLS values are 0.1 or less." aria-labelledby="cls-info" role="img">
+						<title id="cls-info">What is a Good CLS?</title>
+						<use href="/uswds/img/sprite.svg#info"></use>
+					</svg>
+				</th>
+				<th scope="col">% Good <abbr title="Interaction to Next Paint">INP</abbr>
+					<svg class="usa-icon usa-tooltip" title="Good INP values are 200ms or less." aria-labelledby="inp-info" role="img">
+						<title id="lcp-info">What is a Good INP?</title>
+						<use href="/uswds/img/sprite.svg#info"></use>
+					</svg>
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td data-label="Origin">secure.login.gov</td>
+				<td class="bg-green" data-label="Passes CWV">
+					Yes
+					<svg class="usa-icon" aria-hidden="true" role="img">
+						<use href="/uswds/img/sprite.svg#check_circle"></use>
+					</svg>
+				</td>
+				<td data-label="% Good Largest Contentful Paint">96.2%</td>
+				<td data-label="% Good Cumulative Layout Shift">99.6%</td>
+				<td data-label="% Good Interaction to Next Paint">93.5%</td>
+			</tr>
+			<tr>
+				<td data-label="Origin">sam.gov</td>
+				<td class="bg-red" data-label="Passes CWV">
+					No
+					<svg class="usa-icon" aria-hidden="true" role="img">
+						<use href="/uswds/img/sprite.svg#cancel"></use>
+					</svg>
+				</td>
+				<td data-label="% Good Largest Contentful Paint">87.5%</td>
+				<td data-label="% Good Cumulative Layout Shift">14.7%</td>
+				<td data-label="% Good Interaction to Next Paint">94.1%</td>
+			</tr>
+			</tbody>
+		</table>
   </div>
 </div>
 <!--<my-element>-->
