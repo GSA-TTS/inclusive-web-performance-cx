@@ -37,13 +37,20 @@ load_dotenv(find_dotenv())
     help="API key for requests (reads from .env if not provided).",
 )
 @click.option(
+    "--scope",
+    "-s",
+    default="PAGE",
+    type=click.Choice(["page", "origin"]),
+    help="Calls the API for a single page or the entire origin",
+)
+@click.option(
     "--threshold",
     "-t",
     default=10,
     type=int,
     help="Stop after {x} consecutive errors",
 )
-def main(input_urls, output_file, form_factor, api_key, threshold):
+def main(input_urls, output_file, form_factor, api_key, threshold, scope):
     """
     CLI tool to fetch URLs from a file or CLI arg and save or print the responses.
     """
@@ -77,9 +84,14 @@ def main(input_urls, output_file, form_factor, api_key, threshold):
             if form_factor:
                 request_params["formFactor"] = form_factor
 
-            response_data = token_bucket.execute(
-                crux_api_client.get_url(url, request_params)
-            )
+            if scope == "origin":
+                response_data = token_bucket.execute(
+                    crux_api_client.get_origin(url, request_params)
+                )
+            else:
+                response_data = token_bucket.execute(
+                    crux_api_client.get_url(url, request_params)
+                )
 
             if response_data.get("record") is None:
                 continue

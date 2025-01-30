@@ -15,9 +15,15 @@ def format_results(results):
         "interaction_to_next_paint",
     ]
 
-    data = {
-        "url": results["record"]["key"]["url"],
-    }
+    if "url" in results["record"]["key"]:
+        data = {
+            "url": results["record"]["key"]["url"],
+        }
+
+    if "origin" in results["record"]["key"]:
+        data = {
+            "origin": results["record"]["key"]["origin"],
+        }
 
     for field in fields:
         data[field + "_p75"] = (
