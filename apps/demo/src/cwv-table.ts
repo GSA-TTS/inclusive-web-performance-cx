@@ -88,27 +88,43 @@ export class CWVTable extends LitElement {
                     <td data-label="% Good Largest Contentful Paint">
                       ${item.largest_contentful_paint_good_density
                         ? html`
-                            ${(
-                              item.largest_contentful_paint_good_density * 100
-                            ).toFixed(2)}%
+                            <cwv-bar-graph
+                              value=${item.largest_contentful_paint_good_density *
+                              100}
+                            >
+                              ${(
+                                item.largest_contentful_paint_good_density * 100
+                              ).toFixed(2)}%
+                            </cwv-bar-graph>
                           `
                         : html`Not enough data`}
                     </td>
                     <td data-label="% Good Cumulative Layout Shift">
                       ${item.cumulative_layout_shift_good_density
                         ? html`
-                            ${(
-                              item.cumulative_layout_shift_good_density * 100
-                            ).toFixed(2)}%
+                            <cwv-bar-graph
+                              value=${item.cumulative_layout_shift_good_density *
+                              100}
+                            >
+                              ${(
+                                item.cumulative_layout_shift_good_density * 100
+                              ).toFixed(2)}%
+                            </cwv-bar-graph>
                           `
                         : html`Not enough data`}
                     </td>
                     <td data-label="% Good Interaction to Next Paint">
                       ${item.interaction_to_next_paint_good_density
                         ? html`
-                            ${(
-                              item.interaction_to_next_paint_good_density * 100
-                            ).toFixed(2)}%
+                            <cwv-bar-graph
+                              value=${item.interaction_to_next_paint_good_density *
+                              100}
+                            >
+                              ${(
+                                item.interaction_to_next_paint_good_density *
+                                100
+                              ).toFixed(2)}%
+                            </cwv-bar-graph>
                           `
                         : html`Not enough data`}
                     </td>
@@ -117,18 +133,18 @@ export class CWVTable extends LitElement {
               )}
             </tbody>
           </table>
-          <div class="cwv-table__footer bg-base-lightest padding-2">
-            <p><strong>About this data:</strong></p>
-            <ul>
-              <li>
-                To meet the passing criteria, LCP, CLS, and INP must all have a
-                &ldquo;Good&rdquo; percentage of 75% or greater.
-              </li>
-              <li>Good LCP values are 2.5s or less.</li>
-              <li>Good CLS values are 0.1 or less.</li>
-              <li>Good INP values are 200ms or less.</li>
-            </ul>
-          </div>
+<!--          <div class="cwv-table__footer bg-base-lightest padding-2">-->
+<!--            <p><strong>About this data:</strong></p>-->
+<!--            <ul>-->
+<!--              <li>-->
+<!--                To meet the passing criteria, LCP, CLS, and INP must all have a-->
+<!--                &ldquo;Good&rdquo; percentage of 75% or greater.-->
+<!--              </li>-->
+<!--              <li>Good LCP values are 2.5s or less.</li>-->
+<!--              <li>Good CLS values are 0.1 or less.</li>-->
+<!--              <li>Good INP values are 200ms or less.</li>-->
+<!--            </ul>-->
+<!--          </div>-->
         `
       : html`<div>Loading...</div>`;
   }
