@@ -6,6 +6,8 @@ export class CWVTable extends LitElement {
   @property() data?: Array<any>;
   @property() filteredData?: Array<any>;
 
+  baseUrl = 'http://localhost:5173/api/agency/gsa/all';
+
   async connectedCallback() {
     super.connectedCallback();
     const response = await fetch('http://localhost:5173/api/agency/gsa/all');
@@ -23,19 +25,79 @@ export class CWVTable extends LitElement {
     });
   }
 
+  _filterByDevice(status: boolean | null) {
+    console.log(status);
+  }
+
   // Use the light dom to take advantage of the site's CSS
   createRenderRoot() {
     return this;
   }
 
+  passesCWVHtml(value) {
+    let message;
+
+    if (value === true) {
+      message = html`
+        <span class="display-flex flex-align-center">
+          <svg
+            class="usa-icon margin-right-1 cwv-table__icon cwv-table__icon--pass"
+            aria-hidden="true"
+            role="img"
+          >
+            <use href="/uswds/img/sprite.svg#check_circle"></use></svg
+          >Yes
+        </span>
+      `;
+    } else if (value === false) {
+      message = html`
+        <span class="display-flex flex-align-center">
+          <svg
+            class="usa-icon margin-right-1 cwv-table__icon cwv-table__icon--fail"
+            aria-hidden="true"
+            role="img"
+          >
+            <use href="/uswds/img/sprite.svg#cancel"></use></svg
+          >No</span
+        >
+      `;
+    } else {
+      message = html`
+        <span class="display-flex flex-align-center">
+          <svg
+            class="usa-icon margin-right-1 cwv-table__icon cwv-table__icon--no-data"
+            aria-hidden="true"
+            role="img"
+          >
+            <use href="/uswds/img/sprite.svg#warning"></use></svg
+          >Not Enough Data</span
+        >
+      `;
+    }
+
+    return message;
+  }
+
   render() {
     return this.filteredData
       ? html`
-        <p><strong>Filter by CWV status:</strong></p>
-        <div class="usa-button-group">
-          <button class="usa-button usa-button--active" @click="${() => this._filterByPassStatus(null)}">Show all</button>
-          <button class="usa-button usa-button--active" @click="${() => this._filterByPassStatus(true)}">Passes</button>
-          <button class="usa-button usa-button--active" @click="${() => this._filterByPassStatus(false)}">Fails</button>
+        <div class="grid-row">
+          <div class="tablet:grid-col-6">
+            <p><strong>Filter by CWV status:</strong></p>
+            <div class="usa-button-group">
+              <button class="usa-button" @click="${() => this._filterByPassStatus(null)}">Show all</button>
+              <button class="usa-button" @click="${() => this._filterByPassStatus(true)}">Passes</button>
+              <button class="usa-button" @click="${() => this._filterByPassStatus(false)}">Fails</button>
+            </div>
+          </div>
+          <div class="tablet:grid-col-6">
+            <p><strong>Filter by device:</strong></p>
+            <div class="usa-button-group">
+              <button class="usa-button" @click="${() => this._filterByDevice(null)}">Show all</button>
+              <button class="usa-button" @click="${() => this._filterByDevice('phone')}">Phone</button>
+              <button class="usa-button" @click="${() => this._filterByDevice('desktop')}">Desktop</button>
+            </div>
+          </div>
         </div>
 
         <table
@@ -69,34 +131,7 @@ export class CWVTable extends LitElement {
                 <tr>
                   <td data-label="Origin">${item.origin}</td>
                   <td data-label="Passes CWV">
-                    ${typeof item.passes_cwv === 'boolean' &&
-                    item.passes_cwv === true
-                      ? html`
-                          <span class="display-flex flex-align-center">
-                            <svg
-                              class="usa-icon margin-right-1 cwv-table__icon cwv-table__icon--pass"
-                              aria-hidden="true"
-                              role="img"
-                            >
-                              <use
-                                href="/uswds/img/sprite.svg#check_circle"
-                              ></use>
-                            </svg>
-                            Yes
-                          </span>
-                        `
-                      : html`
-                          <span class="display-flex flex-align-center">
-                            <svg
-                              class="usa-icon margin-right-1 cwv-table__icon cwv-table__icon--fail"
-                              aria-hidden="true"
-                              role="img"
-                            >
-                              <use href="/uswds/img/sprite.svg#cancel"></use>
-                            </svg>
-                            No
-                          </span>
-                        `}
+                    ${this.passesCWVHtml(item.passes_cwv)}
                   </td>
                   <td data-label="% Good Largest Contentful Paint">
                     ${item.largest_contentful_paint_good_density
@@ -110,7 +145,7 @@ export class CWVTable extends LitElement {
                             ).toFixed(2)}%
                           </cwv-percent>
                         `
-                      : html`Not enough data`}
+                      : html`<span aria-hidden="true">-</span>`}
                   </td>
                   <td data-label="% Good Cumulative Layout Shift">
                     ${item.cumulative_layout_shift_good_density
@@ -124,7 +159,7 @@ export class CWVTable extends LitElement {
                             ).toFixed(2)}%
                           </cwv-percent>
                         `
-                      : html`Not enough data`}
+                      : html`<span aria-hidden="true">-</span>`}
                   </td>
                   <td data-label="% Good Interaction to Next Paint">
                     ${item.interaction_to_next_paint_good_density
@@ -138,7 +173,7 @@ export class CWVTable extends LitElement {
                             ).toFixed(2)}%
                           </cwv-percent>
                         `
-                      : html`Not enough data`}
+                      : html`<span aria-hidden="true">-</span>`}
                   </td>
                 </tr>
               `
