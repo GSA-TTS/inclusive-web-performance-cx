@@ -26,7 +26,7 @@ export class CWVTable extends LitElement {
     return this.data
       ? html`
           <table
-            class="usa-table usa-table--stacked-header usa-table--borderless width-full"
+            class="usa-table usa-table--stacked-header usa-table--borderless width-full cwv-table"
             slot="results-table"
           >
             <caption>

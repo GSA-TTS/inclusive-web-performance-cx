@@ -1,10 +1,13 @@
 @use 'uswds-core' as *;
 
-.cwv-table__icon {
-  &--fail {
-    fill: $color-red-60v;
-  }
-  &--pass {
-    fill: $color-green-60v;
+.cwv-table {
+  --cwv-table-bar-bg-color: $color-gray-3;
+  &__icon {
+    &--fail {
+      fill: $color-red-60v;
+    }
+    &--pass {
+      fill: $color-green-60v;
+    }
   }
 }
