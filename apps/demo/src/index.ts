@@ -1,1 +1,1 @@
-import './usa-analytics-table';
+import './cwv-table';
