@@ -1,7 +1,11 @@
 @use 'uswds-core' as *;
 
+:root {
+  --cwv-percent-bg: #{$color-gray-10};
+}
+
+
 .cwv-table {
-  --cwv-table-bar-bg-color: $color-gray-3;
   &__icon {
     &--fail {
       fill: $color-red-60v;

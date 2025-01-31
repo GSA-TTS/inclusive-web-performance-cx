@@ -13,6 +13,7 @@ export class CWVBarGraph extends LitElement {
 
   static styles = css`
     :host {
+      --_cwv-percent-bg: var(--cwv-percent-bg, #e6e6e6);
       display: block;
     }
 
@@ -22,28 +23,24 @@ export class CWVBarGraph extends LitElement {
     }
   `;
 
-  // protected updated(changed): void {
-  //   if (changed.has('value') && !!this.value) {
-  //     console.log(this.value);
-  //     this.style.setProperty(
-  //       'background'
-  //     ); /* Set the value of the variable based on class property */
-  //   }
-  // }
-
-  protected updated(changed): void {
+  protected updated(changed: any): void {
     if (changed.has('value') && !!this.value) {
-      console.log(this.value);
-
-      // Calculate cleanValue (capping the value to a maximum of 100 for safety)
       const cleanValue = Math.min(this.value, 100);
 
       // Set the linear gradient as the background
-      this.style.setProperty(
-        'background',
-        `linear-gradient(90deg, #e6e6e6 0%, #e6e6e6 ${cleanValue}%, transparent ${cleanValue}%)`
-      );
+      const style = this.calculateBarGraph(cleanValue);
+      if (style) {
+        this.style.setProperty('background', style);
+      }
     }
+  }
+
+  calculateBarGraph(value: number): string | undefined {
+    if (value <= 0) {
+      return;
+    }
+
+    return `linear-gradient(90deg, var(--_cwv-percent-bg) 0%, var(--_cwv-percent-bg) ${value}%, transparent ${value}%)`;
   }
 
   render() {
