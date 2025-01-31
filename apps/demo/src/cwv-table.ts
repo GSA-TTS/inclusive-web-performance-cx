@@ -1,12 +1,6 @@
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-/**
- * An example element.
- *
- * @slot - This element has a slot
- * @csspart button - The button
- */
 @customElement('cwv-table')
 export class CWVTable extends LitElement {
   @property() data?: Array<any>;

@@ -2,10 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 /**
- * An example element.
- *
  * @slot - This element has a slot
- * @csspart button - The button
  */
 @customElement('cwv-percent')
 export class CWVPercent extends LitElement {
