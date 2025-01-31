@@ -88,35 +88,35 @@ export class CWVTable extends LitElement {
                     <td data-label="% Good Largest Contentful Paint">
                       ${item.largest_contentful_paint_good_density
                         ? html`
-                            <cwv-bar-graph
+                            <cwv-percent
                               value=${item.largest_contentful_paint_good_density *
                               100}
                             >
                               ${(
                                 item.largest_contentful_paint_good_density * 100
                               ).toFixed(2)}%
-                            </cwv-bar-graph>
+                            </cwv-percent>
                           `
                         : html`Not enough data`}
                     </td>
                     <td data-label="% Good Cumulative Layout Shift">
                       ${item.cumulative_layout_shift_good_density
                         ? html`
-                            <cwv-bar-graph
+                            <cwv-percent
                               value=${item.cumulative_layout_shift_good_density *
                               100}
                             >
                               ${(
                                 item.cumulative_layout_shift_good_density * 100
                               ).toFixed(2)}%
-                            </cwv-bar-graph>
+                            </cwv-percent>
                           `
                         : html`Not enough data`}
                     </td>
                     <td data-label="% Good Interaction to Next Paint">
                       ${item.interaction_to_next_paint_good_density
                         ? html`
-                            <cwv-bar-graph
+                            <cwv-percent
                               value=${item.interaction_to_next_paint_good_density *
                               100}
                             >
@@ -124,7 +124,7 @@ export class CWVTable extends LitElement {
                                 item.interaction_to_next_paint_good_density *
                                 100
                               ).toFixed(2)}%
-                            </cwv-bar-graph>
+                            </cwv-percent>
                           `
                         : html`Not enough data`}
                     </td>

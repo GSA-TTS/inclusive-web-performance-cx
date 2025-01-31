@@ -7,8 +7,8 @@ import { customElement, property } from 'lit/decorators.js';
  * @slot - This element has a slot
  * @csspart button - The button
  */
-@customElement('cwv-bar-graph')
-export class CWVBarGraph extends LitElement {
+@customElement('cwv-percent')
+export class CWVPercent extends LitElement {
   @property() value: number = 0;
 
   static styles = css`
@@ -19,6 +19,7 @@ export class CWVBarGraph extends LitElement {
 
     .bar {
       display: block;
+      padding-left: 0.25rem;
       background: none;
     }
   `;
@@ -54,6 +55,6 @@ export class CWVBarGraph extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'cwv-bar-graph': CWVBarGraph;
+    'cwv-percent': CWVPercent;
   }
 }
