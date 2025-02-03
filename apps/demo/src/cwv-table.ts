@@ -6,11 +6,11 @@ export class CWVTable extends LitElement {
   @property() data?: Array<any>;
   @property() filteredData?: Array<any>;
 
-  baseUrl = 'http://localhost:5173/api/agency/gsa/all';
+  endpointUrl = 'http://localhost:5173/api/agency/gsa';
 
   async connectedCallback() {
     super.connectedCallback();
-    const response = await fetch('http://localhost:5173/api/agency/gsa/all');
+    const response = await fetch(`${this.endpointUrl}/all`);
     this.data = await response.json();
     this.filteredData = this.data;
     this.requestUpdate(); // Trigger re-render when data is ready
@@ -32,6 +32,52 @@ export class CWVTable extends LitElement {
   // Use the light dom to take advantage of the site's CSS
   createRenderRoot() {
     return this;
+  }
+
+  scorecardHtml() {
+    const pass = this.data.filter(item => {
+      return item.passes_cwv === true;
+    }).length;
+
+    const eligibleTotal = this.data.filter(
+      item => item.passes_cwv !== null
+    ).length;
+
+    const fail = eligibleTotal - pass;
+    const total = this.data.length;
+    const passPercent = (pass / eligibleTotal) * 100;
+
+    return html`
+      <ul class="usa-card-group margin-bottom-0 margin-top-2">
+        <li
+          class="usa-card card:grid-col-12 tablet:grid-col-6 desktop:grid-col-4 card:padding-bottom-2 desktop:padding-bottom-0"
+        >
+          <div
+            class="usa-card__container border-0 padding-2 bg-accent-cool-light"
+          >
+            <div class="usa-card__body text-center">
+              <p class="margin-0">Core Web Vitals pass rate</p>
+              <p class="font-sans-3xl margin-0 line-height-ui-3">
+                <strong>${passPercent.toFixed(2)}%</strong>
+              </p>
+            </div>
+          </div>
+        </li>
+        <li
+          class="usa-card card:grid-col-12 tablet:grid-col-6 desktop:grid-col-8 card:padding-bottom-2 desktop:padding-bottom-0"
+        >
+          <div class="usa-card__container border-0 padding-2">
+            <div class="usa-card__body">
+              <p class="margin-bottom-0 font-body-lg">
+                ${pass} of ${eligibleTotal} sites pass CWV. There were ${fail}
+                sites that did not pass CWV and ${total - eligibleTotal} sites
+                that didn't have enough data to calculate.
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    `;
   }
 
   passesCWVHtml(value) {
@@ -81,13 +127,16 @@ export class CWVTable extends LitElement {
   render() {
     return this.filteredData
       ? html`
+        <div>
+          ${this.scorecardHtml()}
+        </div>
         <div class="grid-row">
           <div class="tablet:grid-col-6">
             <p><strong>Filter by CWV status:</strong></p>
             <div class="usa-button-group">
               <button class="usa-button" @click="${() => this._filterByPassStatus(null)}">Show all</button>
-              <button class="usa-button" @click="${() => this._filterByPassStatus(true)}">Passes</button>
-              <button class="usa-button" @click="${() => this._filterByPassStatus(false)}">Fails</button>
+              <button class="usa-button" @click="${() => this._filterByPassStatus(true)}">Yes</button>
+              <button class="usa-button" @click="${() => this._filterByPassStatus(false)}">No</button>
             </div>
           </div>
           <div class="tablet:grid-col-6">
@@ -105,7 +154,7 @@ export class CWVTable extends LitElement {
           slot="results-table"
         >
           <caption>
-            Performance of GSA web properties
+            Page speed details for GSA web properties
           </caption>
           <thead>
             <tr>
@@ -180,18 +229,6 @@ export class CWVTable extends LitElement {
             )}
           </tbody>
         </table>
-<!--          <div class="cwv-table__footer bg-base-lightest padding-2">-->
-<!--            <p><strong>About this data:</strong></p>-->
-<!--            <ul>-->
-<!--              <li>-->
-<!--                To meet the passing criteria, LCP, CLS, and INP must all have a-->
-<!--                &ldquo;Good&rdquo; percentage of 75% or greater.-->
-<!--              </li>-->
-<!--              <li>Good LCP values are 2.5s or less.</li>-->
-<!--              <li>Good CLS values are 0.1 or less.</li>-->
-<!--              <li>Good INP values are 200ms or less.</li>-->
-<!--            </ul>-->
-<!--          </div>-->
         `
       : html`<div>Loading...</div>`;
   }
