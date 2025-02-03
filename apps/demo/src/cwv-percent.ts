@@ -10,7 +10,9 @@ export class CWVPercent extends LitElement {
 
   static styles = css`
     :host {
-      --_cwv-percent-bg: var(--cwv-percent-bg, #e6e6e6);
+      --_cwv-percent-good: var(--cwv-percent-bg-good, #c9fbeb);
+      --_cwv-percent-ni: var(--cwv-percent-bg-ni, #fff5c2);
+      --_cwv-percent-poor: var(--cwv-percent-bg-poor, #fde0db);
       display: block;
     }
 
@@ -38,7 +40,18 @@ export class CWVPercent extends LitElement {
       return;
     }
 
-    return `linear-gradient(90deg, var(--_cwv-percent-bg) 0%, var(--_cwv-percent-bg) ${value}%, transparent ${value}%)`;
+    let color:
+      | 'var(--_cwv-percent-poor)'
+      | 'var(--_cwv-percent-ni)'
+      | 'var(--_cwv-percent-good)' = 'var(--_cwv-percent-poor)';
+
+    if (value >= 75) {
+      color = 'var(--_cwv-percent-good)';
+    } else if (value >= 66.67) {
+      color = 'var(--_cwv-percent-ni)';
+    }
+
+    return `linear-gradient(90deg, ${color} 0%, ${color} ${value}%, transparent ${value}%)`;
   }
 
   render() {
