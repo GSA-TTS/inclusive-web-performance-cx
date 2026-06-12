@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 export class CWVTable extends LitElement {
   @property() data?: Array<any>;
   @property() filteredData?: Array<any>;
+  @property({ type: Object }) activeStatus: boolean | null = null;
 
   endpointUrl = 'http://localhost:5173/api/agency/gsa';
 
@@ -17,6 +18,7 @@ export class CWVTable extends LitElement {
   }
 
   _filterByPassStatus(status: boolean | null) {
+    this.activeStatus = status;
     this.filteredData = this.data.filter(item => {
       if (status === null) {
         return true;
@@ -134,17 +136,30 @@ export class CWVTable extends LitElement {
           <div class="tablet:grid-col-6">
             <p><strong>Filter by CWV status:</strong></p>
             <div class="usa-button-group">
-              <button class="usa-button" @click="${() => this._filterByPassStatus(null)}">Show all</button>
-              <button class="usa-button" @click="${() => this._filterByPassStatus(true)}">Yes</button>
-              <button class="usa-button" @click="${() => this._filterByPassStatus(false)}">No</button>
-            </div>
-          </div>
-          <div class="tablet:grid-col-6">
-            <p><strong>Filter by device:</strong></p>
-            <div class="usa-button-group">
-              <button class="usa-button" @click="${() => this._filterByDevice(null)}">Show all</button>
-              <button class="usa-button" @click="${() => this._filterByDevice('phone')}">Phone</button>
-              <button class="usa-button" @click="${() => this._filterByDevice('desktop')}">Desktop</button>
+              <button
+                class="usa-button ${this.activeStatus === null ? 'usa-button--active' : ''}"
+                aria-pressed="${this.activeStatus === null ? 'true' : 'false'}"
+                @click="${() => this._filterByPassStatus(null)}"
+                type="button"
+              >
+                Show all
+              </button>
+              <button
+                class="usa-button ${this.activeStatus === true ? 'usa-button--active' : ''}"
+                aria-pressed="${this.activeStatus === true ? 'true' : 'false'}"
+                @click="${() => this._filterByPassStatus(true)}"
+                type="button"
+              >
+                Yes
+              </button>
+              <button
+                class="usa-button ${this.activeStatus === false ? 'usa-button--active' : ''}"
+                aria-pressed="${this.activeStatus === false ? 'true' : 'false'}"
+                @click="${() => this._filterByPassStatus(false)}"
+                type="button"
+              >
+                No
+              </button>
             </div>
           </div>
         </div>
